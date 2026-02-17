@@ -424,17 +424,11 @@
     gap: 64px;
     align-items: start;
   }
-  .author-photo-placeholder {
-    background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+  .author-photo {
+    width: 100%;
     aspect-ratio: 3/4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--sans);
-    font-size: 12px;
-    color: var(--text-muted);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+    object-fit: cover;
+    object-position: center top;
   }
   .about p { font-size: 17px; line-height: 1.75; }
   .about .newsletter-link {
@@ -577,7 +571,7 @@
     .audience-grid { grid-template-columns: 1fr; gap: 36px; }
     .endorsements-grid { grid-template-columns: 1fr; }
     .about-inner { grid-template-columns: 1fr; gap: 40px; }
-    .author-photo-placeholder { max-width: 240px; }
+    .author-photo { max-width: 240px; }
   }
 
   @media (max-width: 768px) {
@@ -840,7 +834,7 @@
 <section class="about" id="author">
   <div class="container-wide">
     <div class="about-inner">
-      <div class="author-photo-placeholder">Author Photo</div>
+      <img src="images/noah-isaacs.jpg" alt="Noah Isaacs" class="author-photo">
       <div>
         <div class="section-label">About the Author</div>
         <h2>Noah Isaacs</h2>
