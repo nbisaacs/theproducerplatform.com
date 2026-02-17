@@ -600,6 +600,7 @@
     .hero .book-cover img { max-width: 320px; }
   }
 </style>
+<script async src="https://js.stripe.com/v3/buy-button.js"></script>
 </head>
 <body>
 
@@ -852,7 +853,11 @@
     <div class="section-label">Reserve Your Copy</div>
     <h2>The Producer Platform</h2>
     <p>The definitive guide to the best business model in the world. Available Winter 2026.</p>
-    <a href="#" class="btn-primary">Pre-Order Now</a>
+    <stripe-buy-button
+      buy-button-id="buy_btn_1T1wrcBMZ308iYLfFh40HbfN"
+      publishable-key="pk_live_51RdMYyBMZ308iYLf2bfyOeU2piPRWgmqOcmyUeFGx3jL3NPFBkREVfW6RWUIfV8aCfQXWvsVoKwy442wJgl6KloW00DH4daXyg"
+    >
+    </stripe-buy-button>
     <p class="release">Coming Winter 2026</p>
   </div>
 </section>
