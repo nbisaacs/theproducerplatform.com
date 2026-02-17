@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Producer Platform | By Noah Isaacs</title>
+<meta name="description" content="The definitive guide to the business model powering the next generation of dominant companies in the $6 trillion producer economy. Coming Winter 2026.">
+<meta property="og:title" content="The Producer Platform | By Noah Isaacs">
+<meta property="og:description" content="The definitive guide to the $6 trillion producer economy and the business model reshaping it.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://theproducerplatform.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy: #1a2332;
+    --dark: #0f1419;
+    --dark-mid: #151c25;
+    --accent: #c8a86e;
+    --accent-light: #dfc48b;
+    --accent-dim: rgba(200,168,110,0.15);
+    --text: #e8e6e3;
+    --text-muted: #9ca3af;
+    --text-dark: #374151;
+    --bg-light: #f9f8f6;
+    --bg-white: #ffffff;
+    --border: #e5e7eb;
+    --serif: 'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
+    --sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--serif);
+    color: var(--text-dark);
+    background: var(--bg-white);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(15,20,25,0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 18px 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(200,168,110,0.15);
+    transition: padding 0.3s ease;
+  }
+  nav.scrolled { padding: 12px 0; }
+  nav .nav-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  nav .logo {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  nav .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  nav .nav-links a {
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.25s;
+    position: relative;
+  }
+  nav .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.25s;
+  }
+  nav .nav-links a:hover { color: var(--accent); }
+  nav .nav-links a:hover::after { width: 100%; }
+  nav .nav-cta {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dark);
+    background: var(--accent);
+    padding: 10px 24px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.25s;
+  }
+  nav .nav-cta:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+  .mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .mobile-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text-muted);
+    margin: 5px 0;
+    transition: all 0.3s;
+  }
+  .mobile-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .mobile-toggle.open span:nth-child(2) { opacity: 0; }
+  .mobile-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+  .hero {
+    background: linear-gradient(170deg, var(--dark) 0%, var(--dark-mid) 50%, var(--navy) 100%);
+    color: var(--text);
+    padding: 180px 28px 120px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(200,168,110,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero .container { position: relative; z-index: 1; }
+  .hero .preheader {
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: 68px;
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 28px;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+    letter-spacing: -0.5px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.15s forwards;
+  }
+  .hero .subtitle {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--text-muted);
+    max-width: 620px;
+    margin: 0 auto 18px;
+    line-height: 1.65;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.3s forwards;
+  }
+  .hero .byline {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 44px;
+    letter-spacing: 0.3px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+  .hero .cta-group {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.5s forwards;
+  }
+  .hero .release {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .btn-primary {
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: var(--dark);
+    padding: 16px 40px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    transition: all 0.25s;
+  }
+  .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,168,110,0.25); }
+  .btn-secondary {
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 16px 40px;
+    text-decoration: none;
+    font-weight: 500;
+    border: 1px solid rgba(200,168,110,0.4);
+    display: inline-block;
+    transition: all 0.25s;
+  }
+  .btn-secondary:hover { background: rgba(200,168,110,0.08); border-color: var(--accent); }
+
+  section { padding: 110px 28px; }
+  .container { max-width: 820px; margin: 0 auto; }
+  .container-wide { max-width: 1040px; margin: 0 auto; }
+
+  .section-label {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: 42px;
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    color: var(--navy);
+    letter-spacing: -0.3px;
+  }
+
+  h3 {
+    font-family: var(--sans);
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--navy);
+    letter-spacing: -0.1px;
+  }
+
+  p { margin-bottom: 20px; font-size: 18px; }
+  p.large { font-size: 20px; color: #666; font-weight: 300; }
+
+  .premise { background: var(--bg-light); }
+  .premise-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 44px;
+    margin-top: 56px;
+  }
+  .premise-card {
+    border-top: 2px solid var(--accent);
+    padding-top: 24px;
+  }
+  .premise-card .number {
+    font-family: var(--sans);
+    font-size: 52px;
+    font-weight: 200;
+    color: var(--accent);
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+  .premise-card h3 { margin-bottom: 12px; }
+  .premise-card p { font-size: 15.5px; color: #666; line-height: 1.7; }
+
+  .stat-bar {
+    background: var(--navy);
+    color: var(--text);
+    padding: 72px 28px;
+  }
+  .stat-bar .stats {
+    max-width: 1040px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    text-align: center;
+  }
+  .stat-bar .stat-number {
+    font-family: var(--serif);
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--accent);
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+  .stat-bar .stat-label {
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .chapters-list { margin-top: 56px; }
+  .part-label {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 20px 0 12px;
+    margin-top: 20px;
+  }
+  .part-label:first-child { margin-top: 0; }
+  .chapter-item {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .chapter-num {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    padding-top: 3px;
+    letter-spacing: 0.5px;
+  }
+  .chapter-item h3 { margin-bottom: 6px; font-size: 18px; }
+  .chapter-item p { font-size: 15.5px; color: #666; margin-bottom: 0; line-height: 1.65; }
+
+  .cases { background: var(--bg-light); }
+  .case-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 56px;
+  }
+  .case-card {
+    background: var(--bg-white);
+    padding: 40px;
+    border: 1px solid var(--border);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .case-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.06); }
+  .case-card .case-label {
+    font-family: var(--sans);
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .case-card h3 { font-size: 22px; margin-bottom: 12px; font-family: var(--serif); font-weight: 500; }
+  .case-card p { font-size: 15px; color: #666; margin-bottom: 0; line-height: 1.65; }
+  .case-card .case-stat {
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--navy);
+    margin: 20px 0 4px;
+    line-height: 1;
+  }
+  .case-card .case-stat-label {
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 0;
+    letter-spacing: 0.3px;
+  }
+  .cases .more-text {
+    text-align: center;
+    margin-top: 44px;
+    font-family: var(--sans);
+    font-size: 14px;
+    color: #999;
+    letter-spacing: 0.3px;
+  }
+
+  .audience-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 52px;
+    margin-top: 56px;
+  }
+  .audience-item h3 { font-size: 16px; margin-bottom: 10px; }
+  .audience-item p { font-size: 15.5px; color: #666; margin-bottom: 0; line-height: 1.7; }
+
+  .about { background: var(--bg-light); }
+  .about-inner {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .author-photo-placeholder {
+    background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .about p { font-size: 17px; line-height: 1.75; }
+  .about .newsletter-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-family: var(--sans);
+    font-size: 13px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .about .newsletter-link:hover { color: var(--accent-light); }
+
+  .endorsements-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+    margin-top: 56px;
+  }
+  .endorsement {
+    padding: 36px;
+    border-left: 3px solid var(--accent);
+    background: var(--bg-light);
+  }
+  .endorsement blockquote {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-style: italic;
+    color: #555;
+    margin-bottom: 18px;
+    line-height: 1.65;
+    font-weight: 300;
+  }
+  .endorsement .attribution {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: normal;
+    letter-spacing: 0.3px;
+  }
+
+  .preorder {
+    background: linear-gradient(170deg, var(--dark) 0%, var(--navy) 100%);
+    color: var(--text);
+    text-align: center;
+    padding: 120px 28px;
+    position: relative;
+  }
+  .preorder::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 50% 100%, rgba(200,168,110,0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .preorder .container { position: relative; z-index: 1; }
+  .preorder h2 { color: var(--text); margin-bottom: 18px; }
+  .preorder p { color: var(--text-muted); max-width: 520px; margin: 0 auto 36px; font-size: 19px; font-weight: 300; }
+  .preorder .release {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 24px;
+  }
+
+  .newsletter {
+    background: var(--bg-light);
+    text-align: center;
+    padding: 90px 28px;
+  }
+  .newsletter h3 {
+    font-family: var(--serif);
+    font-size: 30px;
+    font-weight: 300;
+    margin-bottom: 14px;
+    color: var(--navy);
+  }
+  .newsletter p { color: #666; margin-bottom: 28px; font-size: 17px; }
+  .email-form {
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .email-form input {
+    flex: 1;
+    padding: 16px 20px;
+    font-size: 15px;
+    border: 1px solid var(--border);
+    border-right: none;
+    font-family: var(--sans);
+    background: white;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .email-form input:focus { border-color: var(--accent); }
+  .email-form input::placeholder { color: #aaa; }
+  .email-form button {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    background: var(--navy);
+    color: white;
+    border: 1px solid var(--navy);
+    padding: 16px 32px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .email-form button:hover { background: #2a3a4e; }
+  .newsletter .fine-print {
+    font-family: var(--sans);
+    font-size: 12px;
+    color: #999;
+    margin-top: 14px;
+    margin-bottom: 0;
+  }
+
+  footer {
+    background: var(--dark);
+    color: var(--text-muted);
+    text-align: center;
+    padding: 44px 28px;
+    font-family: var(--sans);
+    font-size: 13px;
+    letter-spacing: 0.3px;
+  }
+  footer a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+  footer a:hover { color: var(--accent-light); }
+
+  @media (max-width: 900px) {
+    .premise-grid { grid-template-columns: 1fr; gap: 36px; }
+    .case-grid { grid-template-columns: 1fr; }
+    .audience-grid { grid-template-columns: 1fr; gap: 36px; }
+    .endorsements-grid { grid-template-columns: 1fr; }
+    .about-inner { grid-template-columns: 1fr; gap: 40px; }
+    .author-photo-placeholder { max-width: 240px; }
+  }
+
+  @media (max-width: 768px) {
+    .hero { padding: 140px 24px 80px; }
+    .hero h1 { font-size: 42px; }
+    .hero .subtitle { font-size: 19px; }
+    h2 { font-size: 32px; }
+    section { padding: 80px 24px; }
+    .stat-bar .stats { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .stat-bar .stat-number { font-size: 38px; }
+    nav .nav-links { display: none; }
+    nav .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--dark);
+      padding: 24px 28px;
+      gap: 20px;
+      border-bottom: 1px solid rgba(200,168,110,0.15);
+    }
+    .mobile-toggle { display: block; }
+    .email-form { flex-direction: column; }
+    .email-form input { border-right: 1px solid var(--border); border-bottom: none; }
+    .email-form button { border-top: none; }
+    .chapter-item { grid-template-columns: 48px 1fr; gap: 16px; }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 34px; }
+    .hero .cta-group { flex-direction: column; }
+    .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+    .case-card { padding: 28px; }
+    .stat-bar { padding: 52px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <div class="nav-inner">
+    <div class="logo">The Producer Platform</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#premise">The Book</a></li>
+      <li><a href="#chapters">Chapters</a></li>
+      <li><a href="#cases">Case Studies</a></li>
+      <li><a href="#author">Author</a></li>
+    </ul>
+    <a href="#pre-order" class="nav-cta">Pre-Order</a>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="preheader">A New Book by Noah Isaacs</div>
+    <h1>The Producer Platform</h1>
+    <p class="subtitle">The definitive guide to the business model powering the next generation of dominant companies in the $6 trillion producer economy.</p>
+    <p class="byline">Featuring original founder interviews from the Viewpoint Ventures portfolio</p>
+    <div class="cta-group">
+      <a href="#pre-order" class="btn-primary">Pre-Order Now</a>
+      <a href="#premise" class="btn-secondary">Learn More</a>
+    </div>
+    <p class="release">Coming Winter 2026</p>
+  </div>
+</section>
+
+<section class="premise" id="premise">
+  <div class="container-wide">
+    <div class="section-label">The Premise</div>
+    <h2>Some businesses have a structural advantage that compounds over time. This book is about one of them.</h2>
+    <p class="large">Across wealth management, real estate, insurance, healthcare, and dozens of other industries, there are professionals whose clients follow them, not the brand they work under. We call them producers. They control a $6 trillion economy. And a new category of company is giving them mechanical advantage.</p>
+
+    <div class="premise-grid">
+      <div class="premise-card">
+        <div class="number">01</div>
+        <h3>Name the Category</h3>
+        <p>Producer platforms are not SaaS. They are not marketplaces. They are not PE rollups. They are a distinct business model that has been hiding in plain sight, and VCs have been mispricing them for years.</p>
+      </div>
+      <div class="premise-card">
+        <div class="number">02</div>
+        <h3>Decode the Playbook</h3>
+        <p>From the wedge product that gets you in the door, to supply-side monetization that creates the margin engine, to the flywheel that makes growth self-reinforcing. Every mechanism, explained with real data.</p>
+      </div>
+      <div class="premise-card">
+        <div class="number">03</div>
+        <h3>Build the Manual</h3>
+        <p>Go-to-market strategy, pricing, the tech-versus-services balance, AI as a tailwind, and how to solve the cold start problem. A practical guide for founders, investors, and operators.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stat-bar">
+  <div class="stats">
+    <div>
+      <div class="stat-number">$6T</div>
+      <div class="stat-label">Producer Economy</div>
+    </div>
+    <div>
+      <div class="stat-number">20%</div>
+      <div class="stat-label">of US GDP</div>
+    </div>
+    <div>
+      <div class="stat-number">30+</div>
+      <div class="stat-label">Producer Categories</div>
+    </div>
+    <div>
+      <div class="stat-number">10</div>
+      <div class="stat-label">Portfolio Case Studies</div>
+    </div>
+  </div>
+</div>
+
+<section id="chapters">
+  <div class="container">
+    <div class="section-label">Inside the Book</div>
+    <h2>14 chapters across four parts</h2>
+    <p class="large">From "what is a producer?" to "how do I build a producer platform?" to "where is this going next?" Each chapter introduces a concept and immediately grounds it in a real case study.</p>
+
+    <div class="chapters-list">
+      <div class="part-label">Part I: The Producer Economy</div>
+      <div class="chapter-item">
+        <div class="chapter-num">Ch. 1</div>
+        <div><h3>Mechanical Advantage</h3><p>Why success does not correlate with effort, and what producer platforms have to do with it.</p></div>
+      </div>
+      <div class="chapter-item">
+        <div class="chapter-num">Ch. 2</div>
+        <div><h3>Meet the Producer</h3><p>From wealth advisors to med spa injectors to private jet brokers. Who they are, why they matter, and the $6 trillion economy they power.</p></div>
+      </div>
+      <div class="chapter-item">
+        <div class="chapter-num">Ch. 3</div>
+        <div><h3>Why Producers Are Underserved</h3><p>SaaS failed them. Traditional firms take too much. The massive opening this creates.</p></div>
+      </div>
+
+      <div class="part-label">Part II: The Playbook</div>
+      <div class="chapter-item">
+        <div class="chapter-num">Ch. 4</div>
+        <div><h3>What is a Producer Platform</h3><p>The definition, the three sub-models, and why VCs keep misrecognizing these companies.</p></div>
+      </div>
+      <div class="chapter-item">
+        <div class="chapter-num">Ch. 5</div>
+        <div><h3>The Wedge</h3><p>You do not lead with the platform. You lead with one thing that solves the most acute pain.</p></div>
+      </div>
+      <div class="chapter-item">
+        <div class="chapter-num">Ch. 6</div>
+        <div><h3>Take, Make, or Buy</h3><p>Three paths to assembling supply-side capabilities. Each with different capital, margin, and timeline implications.</p></div>
+      </div>
+      <div class="chapter-item">
+        <div class="chapter-num">Ch. 7</div>
+        <div><h3>Monetizing the Supply Side</h3><p>The margin engine that separates a lifestyle business from a generational company.</p></div>
+      </div>
+      <div class="chapter-item">
+        <div class="chapter-num">Ch. 8</div>
+        <div><h3>The Flywheel</h3><p>How producer platforms compound. Declining CAC, rising LTV, and winner-take-most dynamics.</p></div>
+      </div>
+
+      <div class="part-label">Part III: Building One</div>
+      <div class="chapter-item">
+        <div class="chapter-num">Ch. 9</div>
+        <div><h3>Go-to-Market</h3><p>Two segments, two strategies. Why the GTM looks nothing like enterprise SaaS.</p></div>
+      </div>
+      <div class="chapter-item">
+        <div class="chapter-num">Ch. 10</div>
+        <div><h3>Solving the Cold Start Problem</h3><p>Producers bring their own demand. There is no chicken-and-egg. Only a chicken problem.</p></div>
+      </div>
+      <div class="chapter-item">
+        <div class="chapter-num">Ch. 11</div>
+        <div><h3>Tech and Services</h3><p>Producer platforms are both. That is the point. And it is what confuses VCs who want to put you in a box.</p></div>
+      </div>
+      <div class="chapter-item">
+        <div class="chapter-num">Ch. 12</div>
+        <div><h3>AI as Tailwind</h3><p>AI does not replace producers. It makes the economics of serving them dramatically better.</p></div>
+      </div>
+
+      <div class="part-label">Part IV: The Future</div>
+      <div class="chapter-item">
+        <div class="chapter-num">Ch. 13</div>
+        <div><h3>The Next Wave</h3><p>Dozens of producer-led industries where no platform exists yet. A scoring rubric for the next generation of founders.</p></div>
+      </div>
+      <div class="chapter-item">
+        <div class="chapter-num">Ch. 14</div>
+        <div><h3>Distribution is the Only Thing That Matters</h3><p>The thesis, distilled. Why controlling distribution in producer-led markets creates generational companies.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cases" id="cases">
+  <div class="container-wide">
+    <div class="section-label">From the Book</div>
+    <h2>Built on real companies, real data, real founders</h2>
+    <p class="large">Original interviews with the founders of Viewpoint Ventures' portfolio companies, spanning wealth management, real estate, insurance, med spa, private aviation, travel, and more.</p>
+
+    <div class="case-grid">
+      <div class="case-card">
+        <div class="case-label">Wealth Management</div>
+        <h3>Farther</h3>
+        <p>An all-in-one platform for wealth advisors that built its own asset manager and tripled AUM without adding a single customer service rep.</p>
+        <div class="case-stat">$10B+</div>
+        <p class="case-stat-label">Assets under management</p>
+      </div>
+      <div class="case-card">
+        <div class="case-label">Real Estate</div>
+        <h3>Place</h3>
+        <p>Holistic tech and services for top-producing real estate teams. Grew 41% in the worst housing market in 30 years with near-zero sales spend.</p>
+        <div class="case-stat">41%</div>
+        <p class="case-stat-label">Revenue growth in a down market</p>
+      </div>
+      <div class="case-card">
+        <div class="case-label">Med Spa &amp; Aesthetics</div>
+        <h3>Moxie</h3>
+        <p>Making it easier, faster, and cheaper to launch and grow a med spa. LinkedIn's fastest-growing company. Only 8 of 144 employees in go-to-market.</p>
+        <div class="case-stat">8 / 144</div>
+        <p class="case-stat-label">GTM headcount vs. total employees</p>
+      </div>
+      <div class="case-card">
+        <div class="case-label">Private Aviation</div>
+        <h3>Goodwin</h3>
+        <p>The first digital, instant marketplace for chartered flights in a $30B market that was entirely phone and email.</p>
+        <div class="case-stat">100%+</div>
+        <p class="case-stat-label">Quarter-over-quarter growth</p>
+      </div>
+    </div>
+
+    <p class="more-text">Plus: Spark Advisors, HealthSherpa, Nayya, Thinksurance, PolicyFly, Tern, and more.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label">Who This Book is For</div>
+    <h2>Whether you are building one, funding one, or working inside one</h2>
+
+    <div class="audience-grid">
+      <div class="audience-item">
+        <h3>Founders and Operators</h3>
+        <p>If you are building a platform for producers in any industry, this is your playbook. From wedge product to flywheel, from pricing to AI implementation, every chapter is designed to be actionable.</p>
+      </div>
+      <div class="audience-item">
+        <h3>Venture Capitalists and Investors</h3>
+        <p>Producer platforms do not look like marketplaces early on. That is the alpha. This book gives you the framework to recognize them before the market does.</p>
+      </div>
+      <div class="audience-item">
+        <h3>Producers Themselves</h3>
+        <p>If you are a financial advisor, real estate agent, insurance broker, or any professional whose clients follow you, this book will change how you think about the infrastructure underneath your business.</p>
+      </div>
+      <div class="audience-item">
+        <h3>Business School Students and Faculty</h3>
+        <p>A new category of business deserves its own framework. Each chapter is built to work as a standalone case study or as part of a complete curriculum on platform economics.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="author">
+  <div class="container-wide">
+    <div class="about-inner">
+      <div class="author-photo-placeholder">Author Photo</div>
+      <div>
+        <div class="section-label">About the Author</div>
+        <h2>Noah Isaacs</h2>
+        <p>Noah Isaacs is the founder of Realize, a strategic advisory practice focused on producer-led businesses. He has spent years studying the intersection of technology, services, and distribution in industries where human relationships drive demand.</p>
+        <p>His work with Viewpoint Ventures and their portfolio of producer platform companies gave him an unprecedented inside look at how these businesses are built, funded, and scaled. This book is the result of that research: original founder interviews, proprietary data, and a framework for understanding one of the most overlooked categories in the technology economy.</p>
+        <p style="margin-bottom: 0;"><a href="https://substack.com/@realizehq" class="newsletter-link">Subscribe to the Realize Newsletter &rarr;</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label">Advance Praise</div>
+    <h2>What people are saying</h2>
+
+    <div class="endorsements-grid">
+      <div class="endorsement">
+        <blockquote>"Endorsement placeholder. Once you have advance readers, their quotes will go here. Aim for founders, VCs, and at least one professor."</blockquote>
+        <div class="attribution">Name, Title, Company</div>
+      </div>
+      <div class="endorsement">
+        <blockquote>"A second endorsement. Ideally from someone in a different industry or perspective than the first, to show the breadth of the book's relevance."</blockquote>
+        <div class="attribution">Name, Title, Company</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="preorder" id="pre-order">
+  <div class="container">
+    <div class="section-label" style="color: var(--accent);">Reserve Your Copy</div>
+    <h2>The Producer Platform</h2>
+    <p>The definitive guide to the $6 trillion producer economy and the business model reshaping it. Available Winter 2026.</p>
+    <a href="#" class="btn-primary">Pre-Order Now</a>
+    <p class="release">Coming Winter 2026</p>
+  </div>
+</section>
+
+<section class="newsletter">
+  <h3>Stay in the loop</h3>
+  <p>Get early excerpts, founder interview highlights, and updates on the book's progress.</p>
+  <div class="email-form">
+    <input type="email" placeholder="Your email address">
+    <button>Subscribe</button>
+  </div>
+  <p class="fine-print">Join the Realize newsletter. No spam. Unsubscribe anytime.</p>
+</section>
+
+<footer>
+  <p>&copy; 2026 Noah Isaacs. All rights reserved. &nbsp;&middot;&nbsp; <a href="https://substack.com/@realizehq">Realize Newsletter</a></p>
+</footer>
+
+<script>
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  const toggle = document.getElementById('mobileToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    links.classList.toggle('open');
+  });
+
+  links.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      toggle.classList.remove('open');
+      links.classList.remove('open');
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('section:not(.hero), .stat-bar').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
